@@ -91,8 +91,8 @@ int main()
     dodaj(&brojevi, 2);
     dodaj(&brojevi, 3);
     dodaj(&brojevi, 4);
-    printf("Count %d", brojevi.count);
-    printf("\n%d", pronadjiIndex(&brojevi, 3));
+    printf("Count %d\n", brojevi.count);
+    printf("%d\n", pronadjiIndex(&brojevi, 3));
     dodajNaPocetak(&brojevi, 5);
     ispisi(&brojevi);
 
