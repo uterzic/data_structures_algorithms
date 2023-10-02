@@ -40,22 +40,25 @@ void dodaj(struct Array* array, int number)
 {
     if (array->count == array->allocated)
     {
-        printf("Realocated memory +%d bytes\n", ALLOCATION_SIZE);
+        printf("Realocated memory. Added +%d bytes\n", ALLOCATION_SIZE);
         array->numbers = realloc(array->numbers, sizeof(int) * (array->allocated + ALLOCATION_SIZE));
         array->allocated += ALLOCATION_SIZE;
     }
+
     array->numbers[array->count++] = number;
 }
 
 void ispisi(struct Array* array)
 {
+    printf("Array has %d elements.\n", array->count);
+
     for (int i = 0; i < array->count; i++)
     {
-        printf("%d\n", array->numbers[i]);
+        printf("Number on index %d: %d\n", i, array->numbers[i]);
     }
 }
 
-void brisi(struct Array* array, int index) 
+void brisiNaIndexu(struct Array* array, int index) 
 {
     for (int i = index; i < array->count - 1; i++)
     {
@@ -66,7 +69,7 @@ void brisi(struct Array* array, int index)
 
     if (array->allocated - ALLOCATION_SIZE >= array->count )
     {
-        printf("Realocated memory -%d bytes\n", ALLOCATION_SIZE);
+        printf("Realocated memory. Removed -%d bytes\n", ALLOCATION_SIZE);
         array->numbers = realloc(array->numbers, sizeof(int) * (array->allocated - ALLOCATION_SIZE));
         array->allocated -= ALLOCATION_SIZE;
     }
@@ -76,7 +79,7 @@ void dodajNaPocetak(struct Array* array, int number)
 {
     if (array->count == array->allocated)
     {
-        printf("Realocated memory +%d bytes\n", ALLOCATION_SIZE);
+        printf("Realocated memory. Added +%d bytes\n", ALLOCATION_SIZE);
         array->numbers = realloc(array->numbers, sizeof(int) * (array->allocated + ALLOCATION_SIZE));
         array->allocated += ALLOCATION_SIZE;
     }
@@ -94,13 +97,15 @@ int main()
 {
     struct Array *brojevi = napraviArray();
     
-    dodaj(brojevi, 1);
-    dodaj(brojevi, 2);
-    dodaj(brojevi, 3);
-    dodaj(brojevi, 4);
-    printf("Count %d\n", brojevi->count);
-    printf("%d\n", pronadjiIndex(brojevi, 3));
-    dodajNaPocetak(brojevi, 5);
+    dodaj(brojevi, 10);
+    dodaj(brojevi, 20);
+    dodaj(brojevi, 30);
+    dodaj(brojevi, 40);
+    dodaj(brojevi, 60);
+    printf("Number is found on index: %d\n", pronadjiIndex(brojevi, 30));
+    dodajNaPocetak(brojevi, 50);
+    brisiNaIndexu(brojevi, 2);
+
     ispisi(brojevi);
 
     free(brojevi);
