@@ -10,6 +10,22 @@ struct Array
     int allocated;
 };
 
+struct Array *napraviArray()
+{
+    struct Array *nov = malloc(sizeof(struct Array));
+    if (nov == NULL)
+    {
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
+
+    nov->numbers = malloc(sizeof(int) * ALLOCATION_SIZE);
+    nov->count = 0;
+    nov->allocated = ALLOCATION_SIZE;
+
+    return nov;
+}
+
 int pronadjiIndex(struct Array* array, int number)
 {
     for (int i = 0; i < array->count; i++)
@@ -74,28 +90,19 @@ void dodajNaPocetak(struct Array* array, int number)
     array->count++;
 }
 
-
 int main()
 {
-    struct Array brojevi = { NULL, 0, ALLOCATION_SIZE };
+    struct Array *brojevi = napraviArray();
     
-    // Allocate memory for the numbers array
-    brojevi.numbers = malloc(sizeof(int) * ALLOCATION_SIZE);
-    if (brojevi.numbers == NULL)
-    {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
+    dodaj(brojevi, 1);
+    dodaj(brojevi, 2);
+    dodaj(brojevi, 3);
+    dodaj(brojevi, 4);
+    printf("Count %d\n", brojevi->count);
+    printf("%d\n", pronadjiIndex(brojevi, 3));
+    dodajNaPocetak(brojevi, 5);
+    ispisi(brojevi);
 
-    dodaj(&brojevi, 1);
-    dodaj(&brojevi, 2);
-    dodaj(&brojevi, 3);
-    dodaj(&brojevi, 4);
-    printf("Count %d\n", brojevi.count);
-    printf("%d\n", pronadjiIndex(&brojevi, 3));
-    dodajNaPocetak(&brojevi, 5);
-    ispisi(&brojevi);
-
-    free(brojevi.numbers);
+    free(brojevi);
     return 0;
 }
