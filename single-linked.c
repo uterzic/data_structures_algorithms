@@ -23,41 +23,14 @@ Node *makeNode(int value)
 void addFirst(int value)
 {
     Node *newNode = makeNode(value);
-    newNode->next = head;
-
-    head = newNode;
-
-    if (tail == NULL)
-    {
-        tail = newNode;
+    
+    if (head == NULL) head = tail = newNode;
+    else {
+        newNode->next = head;
+        head = newNode;
     }
 
     length++;
-}
-
-void printList(Node* head)
-{
-    Node* curr = head;
-
-    while (curr != NULL)
-    {
-        printf("%d\n", curr->data);
-        curr = curr->next;
-    }
-
-    printf("Length: %d\n", length);
-}
-
-Node* findLast()
-{
-    Node* curr = head;
-
-    while (curr->next != NULL)
-    {
-        curr = curr->next;
-    }
-
-    return curr;
 }
 
 void addLast(int value)
@@ -80,11 +53,12 @@ void deleteAtIndex(int index)
 {
     Node* curr = head;
     Node* prev = NULL;
+    int i = 0;
 
-    for (int i = 0; i != index; i++)
-    {
+    while (i != index) {
         prev = curr;
         curr = curr->next;
+        i++;
     }
 
     prev->next = curr->next;
@@ -96,19 +70,9 @@ void deleteAtIndex(int index)
 void deleteByValue(int value)
 {
     Node* curr = head;
-    if (curr->data == value)
-    {
-        head = curr->next;
-
-        free(curr);
-        length--;
-
-        return;
-    }
-
     Node* prev = NULL;
-    while (curr->data != value)
-    {
+
+    while (curr->data != value) {
         prev = curr;
         curr = curr->next;
     }
@@ -119,12 +83,41 @@ void deleteByValue(int value)
     length--;
 }
 
+Node* findLast()
+{
+    Node* curr = head;
+
+    while (curr->next != NULL)
+    {
+        curr = curr->next;
+    }
+
+    return curr;
+}
+
+void printList(Node* head)
+{
+    Node* curr = head;
+
+    while (curr != NULL)
+    {
+        printf("%d\n", curr->data);
+        curr = curr->next;
+    }
+
+    printf("Length: %d\n", length);
+}
+
 int main()
 {
-    addFirst(10);
-    addFirst(20);
-    addFirst(30);
-    addLast(40);
+    addLast(10);
+    addLast(20);
+    addLast(30);
+    deleteAtIndex(1);
+    addFirst(40);
+    addLast(50);
+    deleteByValue(30);
+    addFirst(25);
     
     printList(head);
 }
