@@ -1,26 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node
+typedef struct node
 {
     int data;
     struct node *next;
-};
+} Node;
 
-struct node *head = NULL;
-struct node *tail = NULL;
+Node *head = NULL;
+Node *tail = NULL;
 int length = 0;
 
-struct node* makeNode(int value)
+Node *makeNode(int value)
 {
-    struct node* newNode = malloc(sizeof(struct node));
+    Node* newNode = malloc(sizeof(Node));
     newNode->data = value;
     newNode->next = NULL;
 }
 
 void addFirst(int value)
 {
-    struct node* newNode = makeNode(value);
+    Node *newNode = makeNode(value);
     newNode->next = head;
 
     head = newNode;
@@ -33,9 +33,9 @@ void addFirst(int value)
     length++;
 }
 
-void printList(struct node* head)
+void printList(Node* head)
 {
-    struct node* curr = head;
+    Node* curr = head;
 
     while (curr != NULL)
     {
@@ -46,9 +46,9 @@ void printList(struct node* head)
     printf("Length: %d", length);
 }
 
-struct node* findLast()
+Node* findLast()
 {
-    struct node* curr = head;
+    Node* curr = head;
 
     while (curr->next != NULL)
     {
@@ -66,7 +66,7 @@ void addLast(int value)
         return;
     }
 
-    struct node* newNode = makeNode(value);
+    Node* newNode = makeNode(value);
 
     tail->next = newNode;
     tail = newNode;
@@ -76,8 +76,8 @@ void addLast(int value)
 
 void deleteAtIndex(int index)
 {
-    struct node* curr = head;
-    struct node* prev = NULL;
+    Node* curr = head;
+    Node* prev = NULL;
 
     for (int i = 0; i != index; i++)
     {
@@ -93,7 +93,7 @@ void deleteAtIndex(int index)
 
 void deleteByValue(int value)
 {
-    struct node* curr = head;
+    Node* curr = head;
     if (curr->data == value)
     {
         head = curr->next;
@@ -104,7 +104,7 @@ void deleteByValue(int value)
         return;
     }
 
-    struct node* prev = NULL;
+    Node* prev = NULL;
     while (curr->data != value)
     {
         prev = curr;
@@ -124,5 +124,5 @@ int main()
     addFirst(30);
     addLast(40);
     
-    printList(head);
+    // printList(head);
 }
