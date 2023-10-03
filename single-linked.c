@@ -16,6 +16,8 @@ Node *makeNode(int value)
     Node* newNode = malloc(sizeof(Node));
     newNode->data = value;
     newNode->next = NULL;
+
+    return newNode;
 }
 
 void addFirst(int value)
@@ -43,7 +45,7 @@ void printList(Node* head)
         curr = curr->next;
     }
 
-    printf("Length: %d", length);
+    printf("Length: %d\n", length);
 }
 
 Node* findLast()
@@ -124,5 +126,5 @@ int main()
     addFirst(30);
     addLast(40);
     
-    // printList(head);
+    printList(head);
 }
