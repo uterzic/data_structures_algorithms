@@ -51,7 +51,7 @@ void addLast(int value)
         tail = newNode;
     }
 
-    newNode->next = head;
+    tail->next = head;
 
     length++;
 }
@@ -158,7 +158,38 @@ void deleteByIndex(int index)
 
 void searchValue(int value)
 {
+    Node *temp = head;
 
+    for (int i = 0; i < length; i++)
+    {
+        if (temp->data == value)
+        {
+            printf("%d found in list.\n", value);
+            return;
+        }
+
+        temp = temp->next;
+    }
+
+    printf("%d not found in list.\n", value);
+}
+
+void indexOf(int value)
+{
+    Node *temp = head;
+
+    for (int i = 0; i < length; i++)
+    {
+        if (temp->data == value)
+        {
+            printf("Index of %d is: %d\n", value, i);
+            return;
+        }
+        
+        temp = temp->next;
+    }
+
+    printf("%d not found in list.\n", value);
 }
 
 void printList() 
@@ -194,4 +225,7 @@ int main()
     deleteByIndex(1);
 
     printList();
+
+    searchValue(10);
+    indexOf(30);
 }
