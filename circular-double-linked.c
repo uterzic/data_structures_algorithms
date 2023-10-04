@@ -47,9 +47,11 @@ void addLast(int value)
         head = tail = newNode;
     } else {
         tail->next = newNode;
+        newNode->prev = tail;
         tail = newNode;
-        tail->next = head;
     }
+
+    newNode->next = head;
 
     length++;
 }
@@ -109,7 +111,49 @@ void deleteByValue(int value)
 
 void deleteByIndex(int index)
 {
+    if (head == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
 
+    if (index < 0 || index >= length)
+    {
+        printf("Invalid index.\n");
+        return;
+    }
+
+    Node *temp = head;
+
+    if (index == 0)
+    {
+        if (head->next == head)
+        {
+            head = NULL;
+            tail = NULL;
+        } 
+        else
+        {
+            head = head->next;
+            tail->next = head;
+        }
+    } 
+    else
+    {
+        for (int i = 0; i < index; i++)
+        {
+            temp = temp->next;
+        }
+
+        temp->prev->next = temp->next;
+        if (temp == tail)
+        {
+            tail = temp->prev;
+        }
+    }
+
+    free(temp);
+    length--;
 }
 
 void searchValue(int value)
@@ -147,7 +191,7 @@ int main()
     addLast(20);
     addLast(30);
 
-    deleteByValue(20);
+    deleteByIndex(1);
 
     printList();
 }
