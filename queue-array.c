@@ -9,6 +9,8 @@ typedef struct queue
     int count;
 } Queue;
 
+int isEmpty(Queue*);
+
 Queue *makeQueue()
 {
     Queue *newQueue = malloc(sizeof(Queue));
@@ -31,8 +33,19 @@ int dequeue(Queue *queue)
     return queue->items[queue->front++];
 }
 
+void peek(Queue *queue)
+{
+    printf("Peek: %d\n", queue->items[queue->front]);
+}
+
 void printQueue(Queue *queue)
 {
+    if (isEmpty(queue))
+    {
+        printf("Queue is empty.\n");
+        return;
+    }
+
     printf("In queue:");
     for (int i = queue->front; i < queue->rear; i++)
     {
@@ -41,14 +54,21 @@ void printQueue(Queue *queue)
     printf("\n");
 }
 
+int isEmpty(Queue *queue)
+{
+    return queue->count == 0;
+}
+
 int main()
 {
     Queue *queue = makeQueue();
+    printQueue(queue);
 
     enqueue(queue, 10);
     enqueue(queue, 20);
     enqueue(queue, 30);
     enqueue(queue, 40);
+    peek(queue);
     dequeue(queue); 
     dequeue(queue);
 
