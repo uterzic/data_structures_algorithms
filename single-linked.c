@@ -118,6 +118,6 @@ int main()
     addLast(50);
     deleteByValue(30);
     addFirst(25);
-    
+
     printList(head);
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct queue
+typedef struct
 {
     int items[5];
     int front;
