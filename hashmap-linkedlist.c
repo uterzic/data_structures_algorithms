@@ -186,13 +186,8 @@ void deleteAtIndex(LinkedList *bucket, int index)
             bucket->tail = prev;
         }
 
-        // Free the memory for the node and its entry
+        // Free the memory for the node
         free(curr);
-//        if (i == 0) {
-//            // If we deleted the head, update the head pointer
-//            free(bucket);
-//            return;
-//        }
         bucket->length--;
     }
 }
@@ -211,6 +206,8 @@ void removeKey(LinkedList *list[], int key) {
         entry = current->entry;
         if (entry->key == key) {
             deleteAtIndex(bucket, i);
+            if (i == 0)
+                list[index] = NULL;
             return;
         }
         current = current->next;
@@ -220,8 +217,9 @@ void removeKey(LinkedList *list[], int key) {
 
 int main()
 {
-    LinkedList **list = calloc(listSize, sizeof(LinkedList*));
+//    LinkedList **list = calloc(listSize, sizeof(LinkedList*));
 
+    LinkedList *list[5];
     // Initialize all elements to NULL
     for (int i = 0; i < listSize; i++) {
         list[i] = NULL;
@@ -246,7 +244,7 @@ int main()
     }
 
     // Free the array itself
-    free(list);
+    free(*list);
 
     return 0;
 }
