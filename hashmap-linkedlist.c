@@ -217,9 +217,9 @@ void removeKey(LinkedList *list[], int key) {
 
 int main()
 {
-//    LinkedList **list = calloc(listSize, sizeof(LinkedList*));
+    LinkedList **list = calloc(listSize, sizeof(LinkedList*));
 
-    LinkedList *list[5];
+//    LinkedList *list[5];
     // Initialize all elements to NULL
     for (int i = 0; i < listSize; i++) {
         list[i] = NULL;
