@@ -178,7 +178,7 @@ bool isBinarySearchUtil(Node *root, int min, int max)
     if (root == NULL)
         return true;
 
-    if (root->value < min && root->value > max)
+    if (root->value < min || root->value > max)
         return false;
 
     return isBinarySearchUtil(root->leftChild, min, root->value - 1) &&
@@ -188,6 +188,13 @@ bool isBinarySearchUtil(Node *root, int min, int max)
 bool isBinarySearchTree(Node *root)
 {
     printf("Is this tree BST: %s\n", isBinarySearchUtil(root, INT_MIN, INT_MAX) ? "Yes" : "No");
+}
+
+void swapRoot(Node *root)
+{
+    Node *temp = root->leftChild;
+    root->leftChild = root->rightChild;
+    root->rightChild = temp;
 }
 
 // TODO: make function for deleting node.
@@ -210,5 +217,6 @@ int main()
     List *list = getNodesWithDistance(root, 1);
     printList(list);
     traversLevelOrder(root);
+    swapRoot(root);
     isBinarySearchTree(root);
 }
