@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <limits.h>
 
 typedef struct node
 {
@@ -172,6 +173,23 @@ void traversLevelOrder(Node *root)
     }
 }
 
+bool isBinarySearchUtil(Node *root, int min, int max)
+{
+    if (root == NULL)
+        return true;
+
+    if (root->value < min && root->value > max)
+        return false;
+
+    return isBinarySearchUtil(root->leftChild, min, root->value - 1) &&
+            isBinarySearchUtil(root->rightChild, root->value + 1, max);
+}
+
+bool isBinarySearchTree(Node *root)
+{
+    printf("Is this tree BST: %s\n", isBinarySearchUtil(root, INT_MIN, INT_MAX) ? "Yes" : "No");
+}
+
 // TODO: make function for deleting node.
 
 int main()
@@ -187,9 +205,10 @@ int main()
     printf("Heigh of tree is: %d\n", height(root));
     printf("Minimal value in tree is: %d\n", minValue(root));
     printf("Maximal value in tree is: %d\n", maxValue(root));
-    printf("Tree has value 20: %s", hasValue(root, 20) ? "Yes\n" : "No\n");
+    printf("Tree has value 20: %s\n", hasValue(root, 20) ? "Yes" : "No");
 
     List *list = getNodesWithDistance(root, 1);
     printList(list);
     traversLevelOrder(root);
+    isBinarySearchTree(root);
 }
