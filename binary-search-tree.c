@@ -197,7 +197,47 @@ void swapRoot(Node *root)
     root->rightChild = temp;
 }
 
-// TODO: make function for deleting node.
+Node* findMinValueNode(Node *root)
+{
+    if (root == NULL)
+        return root;
+
+    while (root->leftChild != NULL)
+        root = root->leftChild;
+
+    return root;
+}
+
+Node *deleteNodeWithValue(Node *root, int value)
+{
+    if (root == NULL)
+        return root;
+
+    if (value < root->value)
+        root->leftChild = deleteNodeWithValue(root->leftChild, value);
+    else if (value > root->value)
+        root->rightChild = deleteNodeWithValue(root->rightChild, value);
+    else
+    {
+        if (root->leftChild == NULL)
+        {
+            Node *temp = root->rightChild;
+            free(root);
+            return temp;
+        }
+        else if (root->rightChild == NULL)
+        {
+            Node *temp = root->leftChild;
+            free(root);
+            return temp;
+        }
+
+        Node *temp = findMinValueNode(root->rightChild);
+        root->value = temp->value;
+        root->rightChild = deleteNodeWithValue(root->rightChild, temp->value);
+    }
+    return root;
+}
 
 int main()
 {
@@ -205,8 +245,13 @@ int main()
 
     insert(&root,20);
     insert(&root, 30);
+    insert(&root, 40);
+    insert(&root, 25);
     insert(&root, 10);
     insert(&root, 5);
+    insert(&root, 2);
+    insert(&root, 15);
+    insert(&root, 12);
 
     printTreePreOrder(root);
     printf("Heigh of tree is: %d\n", height(root));
@@ -215,6 +260,7 @@ int main()
     printf("Tree has value 20: %s\n", hasValue(root, 20) ? "Yes" : "No");
 
     List *list = getNodesWithDistance(root, 1);
+    deleteNodeWithValue(root, 10);
     printList(list);
     traversLevelOrder(root);
     swapRoot(root);
