@@ -22,6 +22,7 @@ int height(Node *node);
 int max(int a, int b) {
     return (a > b) ? a : b;
 }
+
 List *makeList()
 {
     List *newList = malloc(sizeof(List));
