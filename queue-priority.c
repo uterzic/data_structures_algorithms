@@ -28,7 +28,7 @@ bool isEmpty(PriorityQueue *queue)
     return queue->count == 0;
 }
 
-int shiftItemsToInsert(PriorityQueue *queue, int value, int array_size)
+int shiftItemsToInsert(PriorityQueue *queue, int value)
 {
     int i;
     for (i = queue->count - 1; i >= 0; i--)
@@ -54,7 +54,7 @@ void enqueue(PriorityQueue *queue, int value)
         return;
     }
 
-    int indexForPlacement = shiftItemsToInsert(queue, value, ARR_SIZE);
+    int indexForPlacement = shiftItemsToInsert(queue, value);
 
     queue->items[indexForPlacement] = value;
     queue->count++;
