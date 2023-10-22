@@ -74,7 +74,7 @@ public class Trie {
 
     public void remove(String word) {
         if (word == null)
-            return;;
+            return;
 
         remove(root, word, 0);
     }

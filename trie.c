@@ -120,14 +120,42 @@ void traverse(Node *root) {
         traverse(list->list[i]);
 }
 
+void removeWord(Node *root, char word[], int index)
+{
+    if (word == NULL)
+        return;
+
+    size_t wordSize = strlen(word);
+    if (index == wordSize)
+    {
+        root->isEndOfWord = false;
+        return;
+    }
+
+    char ch = word[index];
+    Node *child = getChild(root, ch);
+
+    if (child == NULL)
+        return;
+
+    removeWord(child, word, index + 1);
+
+    if (!hasChildren(child) && !child->isEndOfWord)
+    {
+        removeChild(root, ch);
+    }
+}
+
 
 int main()
 {
     Node *root = makeNode(' ');
 
     insert(root, "uros");
-    insert(root, "urose");
-    insert(root, "urom");
+    insert(root, "urosterzic");
+    insert(root, "urosterza");
 
-    traverse(root);
+    printf("Does contains word uros: %d\n", contains(root, "uros"));
+    removeWord(root, "uros", 0);
+    printf("Does contains word uros: %d\n", contains(root, "uros"));
 }
